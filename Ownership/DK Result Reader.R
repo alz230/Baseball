@@ -18,15 +18,7 @@ team_map <- read_csv("./Inputs/teammap.csv")
 
 # 2. Data Munging -------------------------------------------------------------
 
-# 2.1 Join razzh with vegas ---------------------------------------------------
-razzh <-
-  razzh %>%
-  left_join(team_map, by = c("Team" = "Shortname")) %>%
-  left_join(vegas_data, by = c("Vegas Name" = "Team",
-                               "Date" = "Date",
-                               "GT" = "Time"))
-
-# 2.2 Set date and game time based on name of the file ------------------------
+# 2.1 Set date and game time based on name of the file ------------------------
 
 # Function that takes in the name of the file and returns a list with 
 # the game date and game time
@@ -55,10 +47,21 @@ set_date_game_time <- function(file_name) {
 
 date_game_time <- set_date_game_time(filename)
 
-# Filter razzball database based on date and gametime
-razzh_filtered <- 
+# 2.2 Razzh data set ---------------------------------------------------------
+razzh_filtered <-
   razzh %>%
-  filter(Date == date_game_time$Date & GT %in% date_game_time$Game_Time)
+  left_join(team_map, by = c("Team" = "Shortname")) %>%
+  left_join(vegas_data, by = c("Vegas Name" = "Team",
+                               "Date" = "Date",
+                               "GT" = "Time")) %>%
+  # Filter out razzh for only matching date and game time
+  filter(Date == date_game_time$Date & GT %in% date_game_time$Game_Time) %>%
+  # Select the columns we want to keep from razzh
+  select(Name, Team, Pos, `UP PTS`)
+
+# 3. Ownership Analysis -------------------------------------------------------
+
+  
 
 # Helper functions
 ownership <- function(x, y) {
@@ -74,7 +77,6 @@ myentries = player_lineup("waterboyalz")
 maxdalury = player_lineup("maxdalury")
 beepimajeep = player_lineup("BeepImaJeep")
 csuram88 = player_lineup("CSURAM88")
-
 
 #ownership analysis
 own = data.frame(df$Name, 
