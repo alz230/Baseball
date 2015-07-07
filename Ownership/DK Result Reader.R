@@ -61,7 +61,21 @@ razzh_filtered <-
 
 # 3. Ownership Analysis -------------------------------------------------------
 
+entrants <- c("waterboyalz", "maxdalury", "BeepImaJeep", "CSURAM88")
   
+lineup_data <-
+  tbl %>%
+  # Clean up the entry names and Lineup
+  mutate(EntryName = gsub(" \\((.*)\\)","", EntryName)) %>%
+  mutate(Lineup = gsub("\\((.*)\\) ","", Lineup)) %>%
+  mutate(Lineup = gsub(" $","", Lineup))
+  
+own <-
+  razzh_filtered %>%
+  full_join(lineup_data, by = c("Name" = "Lineup")) %>%
+  arrange(Name) %>%
+  
+
 
 # Helper functions
 ownership <- function(x, y) {
