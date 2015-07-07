@@ -1,15 +1,12 @@
-
-
-# Load Data
+# 0. Packages -----------------------------------------------------------------
+library(dplyr)
+library(readr)
 library(stringr)
-options(stringsAsFactors = FALSE)
 
-
-wd <- getwd() 
-
-filename = "0626157moonshot.csv"
-results = paste(wd, "/Inputs/DraftKing Results/", filename, sep = "")
-tbl = read.csv(results, header = TRUE)
+# 1. Load Data ----------------------------------------------------------------
+filename <- "0626157moonshot.csv"
+filelocation <- paste("./Inputs/DraftKing Results/", filename, sep = "")
+tbl <- read_csv(filelocation)
 
 
 #set date
