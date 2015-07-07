@@ -4,17 +4,35 @@ library(readr)
 library(stringr)
 
 # 1. Load Data ----------------------------------------------------------------
+# Read in data for <???>
 filename <- "0626157moonshot.csv"
 filelocation <- paste("./Inputs/DraftKing Results/", filename, sep = "")
 tbl <- read_csv(filelocation)
 
+# Read in data razz hitter data
+razzh <- read_csv("./Inputs/razzh.csv")
+# Read in Vegas data
+vegas_data <- read_csv("./Inputs/vegas.csv")
+# Data mapping for teaminfo
+team_map <- read_csv("./Inputs/teammap.csv")
 
-#set date
-date = as.Date(substr(filename, 1,6), "%m%d%y")
-date = format(date, format = "%d-%b")
+# 2. Data Munging -------------------------------------------------------------
 
-#filter game times
-gt = substr(filename, 7,7)
+# 2.1 Join razzh with vegas ---------------------------------------------------
+razzh <-
+  razzh %>%
+  left_join(team_map, by = c("Team" = "Shortname")) %>%
+  left_join(vegas_data, by = c("Vegas Name" = "Team",
+                               "Date" = "Date",
+                               "GT" = "Time"))
+
+
+# Set date based on name of the file
+date <- as.Date(substr(filename, 1,6), "%m%d%y")
+date <- format(date, format = "%d-%b")
+
+# filter game times
+gt <- substr(filename, 7,7)
 if(gt == 7) {
   gt = c(7:10) 
 }  else if (gt == 1) {
@@ -25,8 +43,8 @@ if(gt == 7) {
   gt = c(1:12)
 }
 
-#pull subset of razzball database
-df = data.frame()
+# pull subset of razzball database
+df <- data.frame()
 df <- subset(razzh, Date == date & GT %in% gt)
 
 
