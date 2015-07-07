@@ -26,22 +26,34 @@ razzh <-
                                "Date" = "Date",
                                "GT" = "Time"))
 
+# 2.2 Set date and game time based on name of the file ------------------------
 
-# Set date based on name of the file
-date <- as.Date(substr(filename, 1,6), "%m%d%y")
-date <- format(date, format = "%d-%b")
-
-# filter game times
-gt <- substr(filename, 7,7)
-if(gt == 7) {
-  gt = c(7:10) 
-}  else if (gt == 1) {
-  gt = c(1:6, 11:12) 
-}  else if (gt == 3){
-  gt = c(3:6)
-} else { 
-  gt = c(1:12)
+# Function that takes in the name of the file and returns a list with 
+# the game date and game time
+set_date_game_time <- function(file_name) {
+  # Set date
+  date <- as.Date(substr(file_name, 1,6), "%m%d%y")
+  date <- format(date, format = "%d-%b")  
+  
+  # Set game time
+  gt <- substr(file_name, 7,7)
+  
+  if(gt == 7) {
+    gt = c(7:10) 
+  }  else if (gt == 1) {
+    gt = c(1:6, 11:12) 
+  }  else if (gt == 3){
+    gt = c(3:6)
+  } else { 
+    gt = c(1:12)
+  }
+  
+  # Combine the 2 and return a list with Date and Game Time
+  date_game_time <- list("Date" = date, "Game_Time" = gt)
+  date_game_time
 }
+
+set_date_game_time(filename)
 
 # pull subset of razzball database
 df <- data.frame()
