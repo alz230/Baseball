@@ -53,14 +53,14 @@ set_date_game_time <- function(file_name) {
   date_game_time
 }
 
-set_date_game_time(filename)
+date_game_time <- set_date_game_time(filename)
 
-# pull subset of razzball database
-df <- data.frame()
-df <- subset(razzh, Date == date & GT %in% gt)
+# Filter razzball database based on date and gametime
+razzh_filtered <- 
+  razzh %>%
+  filter(Date == date_game_time$Date & GT %in% date_game_time$Game_Time)
 
-
-#functions
+# Helper functions
 ownership <- function(x, y) {
   round(mean(grepl(x, y$Lineup)), digits = 4)
 }
@@ -68,7 +68,6 @@ ownership <- function(x, y) {
 player_lineup <- function(x) {
   subset(tbl, grepl(x,tbl$EntryName), drop=TRUE)
 }
-
 
 #subsets for certain players
 myentries = player_lineup("waterboyalz")
