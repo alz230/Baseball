@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1435411065004.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "CEE5BF68",
+    "lastKnownWriteTime" : 21392300099829876,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "teammap",
+        "contentUrl" : "content?title=teammap&file=0743041edd2745b0946dc94458a00ad0.htm",
+        "displayedObservations" : 30,
+        "displayedVariables" : 4,
+        "totalObservations" : 30,
+        "variables" : 4
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

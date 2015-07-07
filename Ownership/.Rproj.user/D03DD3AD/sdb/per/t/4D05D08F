@@ -1,0 +1,22 @@
+{
+    "contents" : "",
+    "created" : 1435417108983.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4D05D08F",
+    "lastKnownWriteTime" : 7741240723082584096,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "caption" : "mine",
+        "contentUrl" : "content?title=mine&file=3ef0e388d89c406d995af0c301894eb5.htm",
+        "displayedObservations" : 26,
+        "displayedVariables" : 8,
+        "totalObservations" : 26,
+        "variables" : 7
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

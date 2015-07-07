@@ -1,0 +1,16 @@
+{
+    "contents" : "\n\n# Load Data\nlibrary(stringr)\noptions(stringsAsFactors = FALSE)\n\n\nwd <- getwd() \n\nfilename = \"0626157moonshot.csv\"\nresults = paste(wd, \"/Inputs/DraftKing Results/\", filename, sep = \"\")\ntbl = read.csv(results, header = TRUE)\n\n\n#set date\ndate = as.Date(substr(filename, 1,6), \"%m%d%y\")\ndate = format(date, format = \"%d-%b\")\n\n#filter game times\ngt = substr(filename, 7,7)\nif(gt == 7) {\n  gt = c(7:10) \n}  else if (gt == 1) {\n  gt = c(1:6, 11:12) \n}  else if (gt == 3){\n  gt = c(3:6)\n} else { \n  gt = c(1:12)\n}\n\n#pull subset of razzball database\ndf = data.frame()\ndf <- subset(razzh, Date == date & GT %in% gt)\n\n\n#functions\nownership <- function(x, y) {\n  round(mean(grepl(x, y$Lineup)), digits = 4)\n}\n\nplayer_lineup <- function(x) {\n  subset(tbl, grepl(x,tbl$EntryName), drop=TRUE)\n}\n\n\n#subsets for certain players\nmyentries = player_lineup(\"waterboyalz\")\nmaxdalury = player_lineup(\"maxdalury\")\nbeepimajeep = player_lineup(\"BeepImaJeep\")\ncsuram88 = player_lineup(\"CSURAM88\")\n\n\n#ownership analysis\nown = data.frame(df$Name, \n                df$Team, \n                df$Pos,\n                df$X..UP.PTS,\n                sapply(df$Name, ownership, y = tbl),\n                sapply(df$Name, ownership, y = myentries),\n                sapply(df$Name, ownership, y = maxdalury)\n)\nown = own[order(-own[,5]),]\ncolnames(own) <- c(\"Name\", \"Team\", \"Position\", \"Value\", \"Ownership\", \"mine\", \"max\")\n\n#my summary\nmine = subset(own, mine > 0);  mine = mine[order(-mine[,6]),]\nmax = subset(own, max > 0); max = max[order(-max[,7]),]\n\n\n##STACK ANALYSIS##\ny <- data.frame(str_split(as.character(tbl$Lineup), \" ,\")\n                , stringsAsFactors = FALSE)\nz <- length(y)\ncolnames(y) <- c(1:z)\ny <- t(y)\ny <- substring(y, as.numeric(gregexpr(\") \", y)) + 2)\n#y <- data.frame(c(1:z), y)\n#colnames(y) <- c(\"Count\", \"V1\", \"V2\", \"V3\", \"V4\", \"V5\", \"V6\", \"V7\", \"V8\", \"V9\", \"V10\")\n\ntbl2 <- data.frame(tbl,\n                   y)\n\na <- data.frame(razzh$Name,\n                razzh$Team,\n                stringsAsFactors = FALSE\n                )\n\nz <- merge(y, a, by.y = \"razzh.Name\", by.x = \"V1\")\n\n\n",
+    "created" : 1435410559704.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2529191415",
+    "id" : "AF018342",
+    "lastKnownWriteTime" : 1435437544,
+    "path" : "C:/Users/azhou/Dropbox/Documents/Analytics/DraftKings/Baseball/2015/Ownership/DK Result Reader.R",
+    "project_path" : "DK Result Reader.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

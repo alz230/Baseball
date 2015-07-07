@@ -1,0 +1,16 @@
+{
+    "contents" : "\nwd <- getwd() \n\nrazzh_file = paste(wd, \"/Inputs/razzh.csv\", sep = \"\")\nrazzp_file = paste(wd, \"/Inputs/razzp.csv\", sep = \"\")\nvegas_file = paste(wd, \"/Inputs/vegas.csv\", sep = \"\")\nteammap = paste(wd, \"/Inputs/teammap.csv\", sep = \"\")\nplayermap = paste(wd, \"/Inputs/playermap.csv\", sep = \"\") \n\nrazzh = read.csv(razzh_file, header = TRUE)\nrazzp = read.csv(razzp_file, header = TRUE)\nvegas = read.csv(vegas_file, header = TRUE)\nteammap = read.csv(teammap, header = TRUE)\nplayermap = read.csv(playermap, header = TRUE)",
+    "created" : 1435410686179.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2877253063",
+    "id" : "DE9717C9",
+    "lastKnownWriteTime" : 1435411299,
+    "path" : "C:/Users/azhou/Dropbox/Documents/Analytics/DraftKings/Baseball/2015/Ownership/daily_input.R",
+    "project_path" : "daily_input.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
