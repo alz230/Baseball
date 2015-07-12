@@ -70,11 +70,13 @@ lineup_data <-
   mutate(Lineup = gsub("\\((.*)\\) ","", Lineup)) %>%
   mutate(Lineup = gsub(" $","", Lineup))
   
-own <-
+ownership_data <-
   razzh_filtered %>%
   full_join(lineup_data, by = c("Name" = "Lineup")) %>%
   arrange(Name) %>%
-  
+  filter(is.na(Rank))
+  mutate(test = )
+  mutate(Ownership = )
 
 
 # Helper functions
